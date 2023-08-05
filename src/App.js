@@ -5,20 +5,19 @@ import './App.css';
 
  
 export default function App() {
-  /**
- * Challenge: Create a function `holdDice` that takes
- * `id` as a parameter. For now, just have the function
- * console.log(id).
- * 
- * Then, figure out how to pass that function down to each
- * instance of the Die component so when each one is clicked,
- * it logs its own unique ID property. (Hint: there's more
- * than one way to make that work, so just choose whichever
- * you want)
- * 
- */
   
 const [dice, setDice] = React.useState(allNewDice());
+const [tenzies, setTenzies] = React.useState(false);
+
+  React.useEffect(() => {
+    const allHeld = dice.every(die => die.isHeld);
+    const firstValue = dice[0].value;
+    const allSameValue = dice.every(die => die.value === firstValue);
+    if(allHeld && allSameValue) {
+      setTenzies(true)
+      console.log('you won')
+    }
+  }, [dice])
 
   function generateNewDie(){
     return {
@@ -59,6 +58,8 @@ const [dice, setDice] = React.useState(allNewDice());
 
   return (
     <main>
+      <h1 className='title'>Tenzies</h1>
+      <p className='instructions'>Roll until all dice are the same, Click each die to freeze it at it's current value between rolls</p>
       <div className="dice--container">
         {diceElements}
       </div>
