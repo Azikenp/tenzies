@@ -16,7 +16,6 @@ const [tenzies, setTenzies] = React.useState(false);
     const allSameValue = dice.every(die => die.value === firstValue);
     if(allHeld && allSameValue) {
       setTenzies(true)
-      console.log('you won')
     }
   }, [dice])
 
@@ -39,9 +38,15 @@ const [tenzies, setTenzies] = React.useState(false);
 
 
   function rollDice(){
-    setDice(oldDice => oldDice.map(die => {
-      return die.isHeld? die: generateNewDie()
-    }))
+    if(!tenzies){
+      setDice(oldDice => oldDice.map(die => {
+        return die.isHeld? die: generateNewDie()
+      }))
+    } else{
+      setTenzies(false)
+      setDice(allNewDice())
+    }
+    
   }
   
   function holdDice(id){
@@ -57,7 +62,7 @@ const [tenzies, setTenzies] = React.useState(false);
     holdDice={() => holdDice(die.id)}
     />)
 
-  const btnDisplayText = tenzies? "New Game" : "Roll"
+  let btnDisplayText = tenzies? "New Game" : "Roll"
   const confetti = tenzies?<Confetti/> : ""
   
 
