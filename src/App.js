@@ -1,6 +1,7 @@
 import React from 'react';
 import Die from './components/Die';
 import { nanoid } from 'nanoid';
+import Confetti from 'react-confetti'
 import './App.css';
 
  
@@ -57,6 +58,7 @@ const [tenzies, setTenzies] = React.useState(false);
     />)
 
   const btnDisplayText = tenzies? "New Game" : "Roll"
+  const confetti = tenzies?<Confetti/> : ""
   
 
   return (
@@ -69,6 +71,7 @@ const [tenzies, setTenzies] = React.useState(false);
       <button onClick={rollDice} className="roll--dice">
         {btnDisplayText}
       </button>
+      {confetti}
     </main>
   )
 }
