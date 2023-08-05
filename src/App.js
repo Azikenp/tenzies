@@ -56,6 +56,9 @@ const [tenzies, setTenzies] = React.useState(false);
     holdDice={() => holdDice(die.id)}
     />)
 
+  const btnDisplayText = tenzies? "New Game" : "Roll"
+  
+
   return (
     <main>
       <h1 className='title'>Tenzies</h1>
@@ -63,7 +66,9 @@ const [tenzies, setTenzies] = React.useState(false);
       <div className="dice--container">
         {diceElements}
       </div>
-      <button onClick={rollDice} className="roll--dice">Roll</button>
+      <button onClick={rollDice} className="roll--dice">
+        {btnDisplayText}
+      </button>
     </main>
   )
 }
