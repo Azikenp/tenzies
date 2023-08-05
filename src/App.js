@@ -9,6 +9,8 @@ export default function App() {
   
 const [dice, setDice] = React.useState(allNewDice());
 const [tenzies, setTenzies] = React.useState(false);
+const [currentScore, setCurrentScore] = React.useState(0);
+const [highScoreVal, setHighscoreVal] = React.useState();
 
   React.useEffect(() => {
     const allHeld = dice.every(die => die.isHeld);
@@ -17,7 +19,22 @@ const [tenzies, setTenzies] = React.useState(false);
     if(allHeld && allSameValue) {
       setTenzies(true)
     }
-  }, [dice])
+  }, [dice]);
+
+  // React.useEffect(() => {
+  //   if(currentScore < highScoreVal){
+  //     setHighscoreVal(currentScore)
+  //   } else {
+  //     setHighscoreVal(highScoreVal)
+  //   }
+  // }, [tenzies])
+
+  // const updateHighScore = function(){
+  //   if(highScoreVal > currentScore){
+  //     setHighscoreVal(currentScore)
+  //   }
+  // }
+
 
   function generateNewDie(){
     return {
@@ -42,11 +59,12 @@ const [tenzies, setTenzies] = React.useState(false);
       setDice(oldDice => oldDice.map(die => {
         return die.isHeld? die: generateNewDie()
       }))
+      setCurrentScore(score => score = score + 1)
     } else{
       setTenzies(false)
       setDice(allNewDice())
+      setCurrentScore(score => score = 0)
     }
-    
   }
   
   function holdDice(id){
@@ -64,6 +82,7 @@ const [tenzies, setTenzies] = React.useState(false);
 
   let btnDisplayText = tenzies? "New Game" : "Roll"
   const confetti = tenzies?<Confetti/> : ""
+
   
 
   return (
@@ -76,6 +95,8 @@ const [tenzies, setTenzies] = React.useState(false);
       <button onClick={rollDice} className="roll--dice">
         {btnDisplayText}
       </button>
+      <p className='score'>No of Rolls: {currentScore}</p>
+      <p className='high--score'>High score: {highScoreVal}</p>
       {confetti}
     </main>
   )
