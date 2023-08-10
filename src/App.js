@@ -97,7 +97,7 @@ const [highScoreVal, setHighscoreVal] = React.useState();
       </button>
       <p className='score'>No of Rolls: {currentScore}</p>
       <p className='high--score'>High score: {highScoreVal}</p>
-    
+      {confetti}
     </main>
   )
 }
